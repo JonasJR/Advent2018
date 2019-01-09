@@ -13,6 +13,9 @@ function char_count(str, letter)
   }
   return letter_Count;
 }
+function removeAt(string, i) {
+  return string.slice(0, i) + string.slice(i + 1);
+}
 
 var fs = require('fs');
 var answer1 = 0;
@@ -43,11 +46,24 @@ fs.readFile( __dirname + '/input2.txt', function (err, data) {
     } if (three == true) {
       threes += 1
     }
-});
-answer1 = twos * threes
+  });
+  answer1 = twos * threes
 
-//Part2
-
+  //Part2
+  const ids = input;
+  const inputLength = ids[0].length;
+  for (let i = 0; i < inputLength; i++) {
+      const shortIds = ids.map(id => removeAt(id, i));
+      if (new Set(shortIds).size === ids.length) {
+          // All Ids are unique
+          continue;
+      }
+      const duplicates = shortIds.filter(
+          (item, index) => shortIds.indexOf(item) != index
+      );
+      // Should only have one duplicate here we're looking for
+      answer2 = duplicates[0];
+  }
 });
 
 
